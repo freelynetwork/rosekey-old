@@ -1,4 +1,4 @@
-import megalodon, { MegalodonInterface } from "megalodon";
+import megalodon, { MegalodonInterface } from "@joinfirefish/megalodon";
 import Router from "@koa/router";
 import { getClient } from "../ApiMastodonCompatibleService.js";
 import { IdType, convertId } from "../../index.js";

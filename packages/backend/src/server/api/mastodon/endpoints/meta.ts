@@ -1,4 +1,4 @@
-import { Entity } from "megalodon";
+import { Entity } from "@joinfirefish/megalodon";
 import config from "@/config/index.js";
 import { fetchMeta } from "@/misc/fetch-meta.js";
 import { MAX_NOTE_TEXT_LENGTH, FILE_TYPE_BROWSERSAFE } from "@/const.js";

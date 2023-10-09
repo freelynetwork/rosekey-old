@@ -1,7 +1,7 @@
 import Router from "@koa/router";
 import { getClient } from "../ApiMastodonCompatibleService.js";
 import axios from "axios";
-import Converter from "megalodon";
+import Converter from "@joinfirefish/megalodon";
 import { convertTimelinesArgsId, limitToInt } from "./timeline.js";
 import { convertAccount, convertStatus } from "../converters.js";
 
