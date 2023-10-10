@@ -4,9 +4,7 @@ import type { Note } from "@/models/entities/note.js";
 import type { NoteReaction } from "@/models/entities/note-reaction.js";
 import { Client, types, tracker } from "cassandra-driver";
 import type { User } from "@/models/entities/user.js";
-import {
-	Cache,
-} from "@/misc/cache.js";
+import { Cache } from "@/misc/cache.js";
 import { getTimestamp } from "@/misc/gen-id.js";
 import Logger from "@/services/logger.js";
 import { getWordHardMute } from "@/misc/check-word-mute.js";
@@ -34,7 +32,8 @@ function newClient(): Client | null {
 				[types.distance.local]: config.scylla.connections?.local || 2,
 				[types.distance.remote]: config.scylla.connections?.remote || 1,
 			},
-			maxRequestsPerConnection: config.scylla.connections?.maxRequestsPerConnection || 2048,
+			maxRequestsPerConnection:
+				config.scylla.connections?.maxRequestsPerConnection || 2048,
 		},
 		requestTracker,
 		credentials: config.scylla.credentials,
@@ -82,14 +81,16 @@ export async function fetchPostCount(local = false): Promise<number> {
 				.execute("SELECT COUNT(*) FROM local_note_by_user_id", [], {
 					prepare: true,
 				})
-				.then((result) => result.first().get("count") as number),
+				.then((result) => result.first().get("count"))
+				.then(Number),
 		);
 	}
 
 	return await allPostCountCache.fetch(null, () =>
 		scyllaClient
 			.execute("SELECT COUNT(*) FROM note", [], { prepare: true })
-			.then((result) => result.first().get("count") as number),
+			.then((result) => result.first().get("count"))
+			.then(Number),
 	);
 }
 
@@ -101,7 +102,8 @@ export async function fetchReactionCount(): Promise<number> {
 	return await reactionCountCache.fetch(null, () =>
 		scyllaClient
 			.execute("SELECT COUNT(*) FROM reaction", [], { prepare: true })
-			.then((result) => result.first().get("count") as number),
+			.then((result) => result.first().get("count"))
+			.then(Number),
 	);
 }
 
@@ -112,7 +114,7 @@ export interface ScyllaNotification {
 	id: string;
 	notifierId: string | null;
 	notifierHost: string | null;
-	type: typeof notificationTypes[number];
+	type: (typeof notificationTypes)[number];
 	entityId: string | null;
 	reaction: string | null;
 	choice: number | null;
@@ -462,7 +464,8 @@ export async function execPaginationQuery(
 			params.push(sinceDate);
 		}
 
-		const fetchLimit = kind === "list" ? Math.min(ps.limit, queryLimit) : queryLimit;
+		const fetchLimit =
+			kind === "list" ? Math.min(ps.limit, queryLimit) : queryLimit;
 		params.push(fetchLimit);
 
 		const result = await scyllaClient.execute(query, params, {
@@ -612,9 +615,7 @@ export function filterMutedNote(
 	mutedWords: string[][],
 ): ScyllaNote[] {
 	if (mutedWords.length > 0) {
-		return notes.filter(
-			(note) => !getWordHardMute(note, user, mutedWords),
-		);
+		return notes.filter((note) => !getWordHardMute(note, user, mutedWords));
 	}
 
 	return notes;
