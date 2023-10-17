@@ -73,6 +73,7 @@ import { i18n } from "@/i18n";
 import { definePageMetadata } from "@/scripts/page-metadata";
 import { deviceKind } from "@/scripts/device-kind";
 import { defaultStore } from "@/store";
+import icon from "@/scripts/icon";
 import "swiper/scss";
 import "swiper/scss/virtual";
 
@@ -104,7 +105,7 @@ function setFilter(ev) {
 		includeTypes.value != null
 			? [
 					{
-						icon: "ph-x ph-bold ph-lg",
+						icon: `${icon("ph-x")}`,
 						text: i18n.ts.clear,
 						action: () => {
 							includeTypes.value = null;
@@ -122,7 +123,7 @@ const headerActions = computed(() =>
 		tab.value === "all"
 			? {
 					text: i18n.ts.filter,
-					icon: "ph-funnel ph-bold ph-lg",
+					icon: `${icon("ph-funnel")}`,
 					highlighted: includeTypes.value != null,
 					handler: setFilter,
 			  }
@@ -130,7 +131,7 @@ const headerActions = computed(() =>
 		tab.value === "all"
 			? {
 					text: i18n.ts.markAllAsRead,
-					icon: "ph-check ph-bold ph-lg",
+					icon: `${icon("ph-check")}`,
 					handler: () => {
 						os.apiWithDialog("notifications/mark-all-as-read");
 					},
@@ -143,29 +144,29 @@ const headerTabs = computed(() => [
 	{
 		key: "all",
 		title: i18n.ts.all,
-		icon: "ph-bell ph-bold ph-lg",
+		icon: `${icon("ph-bell")}`,
 	},
 	{
 		key: "unread",
 		title: i18n.ts.unread,
-		icon: "ph-circle-wavy-warning ph-bold ph-lg",
+		icon: `${icon("ph-circle-wavy-warning")}`,
 	},
 	{
 		key: "mentions",
 		title: i18n.ts.mentions,
-		icon: "ph-at ph-bold ph-lg",
+		icon: `${icon("ph-at")}`,
 	},
 	{
 		key: "directNotes",
 		title: i18n.ts.directNotes,
-		icon: "ph-envelope-simple-open ph-bold ph-lg",
+		icon: `${icon("ph-envelope-simple-open")}`,
 	},
 ]);
 
 definePageMetadata(
 	computed(() => ({
 		title: i18n.ts.notifications,
-		icon: "ph-bell ph-bold ph-lg",
+		icon: `${icon("ph-bell")}`,
 	})),
 );
 
