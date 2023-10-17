@@ -386,28 +386,29 @@ export default async (
 
 		// Word mute
 		if (!scyllaClient) {
-		mutedWordsCache
-			.fetch(null, () =>
-				UserProfiles.find({
-					where: {
-						enableWordMute: true,
-					},
-					select: ["userId", "mutedWords"],
-				}),
-			)
-			.then((us) => {
-				for (const u of us) {
-					getWordHardMute(data, u.userId, u.mutedWords).then((shouldMute) => {
-						if (shouldMute) {
-							MutedNotes.insert({
-								id: genId(),
-								userId: u.userId,
-								noteId: note.id,
-								reason: "word",
-							});
-						}
-					});
-				}});
+			mutedWordsCache
+				.fetch(null, () =>
+					UserProfiles.find({
+						where: {
+							enableWordMute: true,
+						},
+						select: ["userId", "mutedWords"],
+					}),
+				)
+				.then((us) => {
+					for (const u of us) {
+						getWordHardMute(data, u.userId, u.mutedWords).then((shouldMute) => {
+							if (shouldMute) {
+								MutedNotes.insert({
+									id: genId(),
+									userId: u.userId,
+									noteId: note.id,
+									reason: "word",
+								});
+							}
+						});
+					}
+				});
 		}
 
 		// Antenna
