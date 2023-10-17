@@ -1,6 +1,6 @@
 import * as mfm from "mfm-js";
-import es from "../../db/elasticsearch.js";
-import sonic from "../../db/sonic.js";
+import es from "@/db/elasticsearch.js";
+import sonic from "@/db/sonic.js";
 import {
 	publishMainStream,
 	publishNotesStream,
@@ -380,18 +380,16 @@ export default async (
 			)
 			.then((us) => {
 				for (const u of us) {
-					getWordHardMute(data, { id: u.userId }, u.mutedWords).then(
-						(shouldMute) => {
-							if (shouldMute) {
-								MutedNotes.insert({
-									id: genId(),
-									userId: u.userId,
-									noteId: note.id,
-									reason: "word",
-								});
-							}
-						},
-					);
+					getWordHardMute(data, u.userId, u.mutedWords).then((shouldMute) => {
+						if (shouldMute) {
+							MutedNotes.insert({
+								id: genId(),
+								userId: u.userId,
+								noteId: note.id,
+								reason: "word",
+							});
+						}
+					});
 				}
 			});
 
