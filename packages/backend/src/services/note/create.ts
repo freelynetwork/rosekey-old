@@ -1,6 +1,6 @@
 import * as mfm from "mfm-js";
-import es from "../../db/elasticsearch.js";
-import sonic from "../../db/sonic.js";
+import es from "@/db/elasticsearch.js";
+import sonic from "@/db/sonic.js";
 import {
 	publishMainStream,
 	publishNotesStream,
@@ -386,22 +386,18 @@ export default async (
 
 		// Word mute
 		if (!scyllaClient) {
-			mutedWordsCache
-				.fetch(null, () =>
-					UserProfiles.find({
-						where: {
-							enableWordMute: true,
-						},
-						select: ["userId", "mutedWords"],
-					}),
-				)
-				.then((us) => {
-					for (const u of us) {
-						const shouldMute = getWordHardMute(
-							data,
-							{ id: u.userId },
-							u.mutedWords,
-						);
+		mutedWordsCache
+			.fetch(null, () =>
+				UserProfiles.find({
+					where: {
+						enableWordMute: true,
+					},
+					select: ["userId", "mutedWords"],
+				}),
+			)
+			.then((us) => {
+				for (const u of us) {
+					getWordHardMute(data, u.userId, u.mutedWords).then((shouldMute) => {
 						if (shouldMute) {
 							MutedNotes.insert({
 								id: genId(),
@@ -410,8 +406,8 @@ export default async (
 								reason: "word",
 							});
 						}
-					}
-				});
+					});
+				}});
 		}
 
 		// Antenna

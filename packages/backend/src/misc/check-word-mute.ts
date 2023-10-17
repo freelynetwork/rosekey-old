@@ -1,6 +1,5 @@
 import RE2 from "re2";
 import type { Note } from "@/models/entities/note.js";
-import type { User } from "@/models/entities/user.js";
 import { DriveFile } from "@/models/entities/drive-file";
 import { scyllaClient, type ScyllaNote } from "@/db/scylla.js";
 
@@ -9,10 +8,6 @@ type NoteLike = {
 	text: Note["text"];
 	files?: DriveFile[];
 	cw?: Note["cw"];
-};
-
-type UserLike = {
-	id: User["id"];
 };
 
 function checkWordMute(
@@ -77,15 +72,12 @@ function checkWordMute(
 	return false;
 }
 
-export function getWordHardMute(
-	note: NoteLike | ScyllaNote,
-	me: UserLike | null | undefined,
-	mutedWords: Array<string | string[]>,
-): boolean {
-	// 自分自身
-	if (me && note.userId === me.id) {
-		return false;
-	}
+export async function getWordHardMute(
+	note: NoteLike,
+	meId: string | null | undefined,
+	mutedWords?: Array<string | string[]>,
+): Promise<boolean> {
+	if (note.userId === meId || mutedWords == null) return false;
 
 	let ng = false;
 
