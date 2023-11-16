@@ -1,10 +1,3 @@
-import define from "../../define.js";
-import { ClipNotes, Clips, Notes, UserProfiles } from "@/models/index.js";
-import { makePaginationQuery } from "../../common/make-pagination-query.js";
-import { generateVisibilityQuery } from "../../common/generate-visibility-query.js";
-import { generateMutedUserQuery } from "../../common/generate-muted-user-query.js";
-import { ApiError } from "../../error.js";
-import { generateBlockedUserQuery } from "../../common/generate-block-query.js";
 import {
 	type ScyllaNote,
 	scyllaClient,
@@ -27,6 +20,13 @@ import {
 import { Between, MoreThan, LessThan, FindOptionsWhere } from "typeorm";
 import type { ClipNote } from "@/models/entities/clip-note.js";
 import config from "@/config/index.js";
+import define from "@/server/api/define.js";
+import { ClipNotes, Clips, Notes, UserProfiles } from "@/models/index.js";
+import { makePaginationQuery } from "@/server/api/common/make-pagination-query.js";
+import { generateVisibilityQuery } from "@/server/api/common/generate-visibility-query.js";
+import { generateMutedUserQuery } from "@/server/api/common/generate-muted-user-query.js";
+import { ApiError } from "@/server/api/error.js";
+import { generateBlockedUserQuery } from "@/server/api/common/generate-block-query.js";
 
 export const meta = {
 	tags: ["account", "notes", "clips"],

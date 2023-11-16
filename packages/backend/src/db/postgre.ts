@@ -77,6 +77,9 @@ import { entities as charts } from "@/services/chart/entities.js";
 import { dbLogger } from "./logger.js";
 import { redisClient } from "./redis.js";
 
+// TODO?: should we avoid importing things from built directory?
+import { nativeInitDatabase } from "native-utils/built/index.js";
+
 const sqlLogger = dbLogger.createSubLogger("sql", "gray", false);
 
 class MyCustomLogger implements Logger {

@@ -1,13 +1,8 @@
-import define from "../../define.js";
+import define from "@/server/api/define.js";
 import readNote from "@/services/note/read.js";
 import { Antennas, Notes, UserProfiles, Users } from "@/models/index.js";
 import { redisClient } from "@/db/redis.js";
 import { getTimestamp } from "@/misc/gen-id.js";
-import { makePaginationQuery } from "../../common/make-pagination-query.js";
-import { generateVisibilityQuery } from "../../common/generate-visibility-query.js";
-import { generateMutedUserQuery } from "../../common/generate-muted-user-query.js";
-import { ApiError } from "../../error.js";
-import { generateBlockedUserQuery } from "../../common/generate-block-query.js";
 import {
 	type ScyllaNote,
 	scyllaClient,
@@ -33,6 +28,11 @@ import * as Acct from "@/misc/acct.js";
 import { acctToUserIdCache } from "@/services/user-cache.js";
 import config from "@/config/index.js";
 import { IsNull } from "typeorm";
+import { makePaginationQuery } from "@/server/api/common/make-pagination-query.js";
+import { generateVisibilityQuery } from "@/server/api/common/generate-visibility-query.js";
+import { generateMutedUserQuery } from "@/server/api/common/generate-muted-user-query.js";
+import { ApiError } from "@/server/api/error.js";
+import { generateBlockedUserQuery } from "@/server/api/common/generate-block-query.js";
 
 export const meta = {
 	tags: ["antennas", "account", "notes"],

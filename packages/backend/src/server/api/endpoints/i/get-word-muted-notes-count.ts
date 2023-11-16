@@ -1,6 +1,6 @@
-import { scyllaClient } from "@/db/scylla.js";
-import define from "../../define.js";
+import define from "@/server/api/define.js";
 import { MutedNotes } from "@/models/index.js";
+import { scyllaClient } from "@/db/scylla.js";
 
 export const meta = {
 	tags: ["account"],

@@ -1,8 +1,4 @@
 import { NoteReactions, UserProfiles } from "@/models/index.js";
-import define from "../../define.js";
-import { makePaginationQuery } from "../../common/make-pagination-query.js";
-import { generateVisibilityQuery } from "../../common/generate-visibility-query.js";
-import { ApiError } from "../../error.js";
 import {
 	type ScyllaNoteReaction,
 	execPaginationQuery,
@@ -13,6 +9,10 @@ import {
 } from "@/db/scylla.js";
 import { LocalFollowingsCache } from "@/misc/cache.js";
 import type { Client } from "cassandra-driver";
+import define from "@/server/api/define.js";
+import { makePaginationQuery } from "@/server/api/common/make-pagination-query.js";
+import { generateVisibilityQuery } from "@/server/api/common/generate-visibility-query.js";
+import { ApiError } from "@/server/api/error.js";
 
 export const meta = {
 	tags: ["users", "reactions"],
@@ -59,7 +59,7 @@ export const paramDef = {
 export default define(meta, paramDef, async (ps, me) => {
 	const profile = await UserProfiles.findOneByOrFail({ userId: ps.userId });
 
-	if (me?.id !== ps.userId && !profile.publicReactions) {
+	if (!profile.publicReactions && (me == null || me.id !== ps.userId)) {
 		throw new ApiError(meta.errors.reactionsNotPublic);
 	}
 

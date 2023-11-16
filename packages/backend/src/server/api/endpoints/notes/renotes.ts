@@ -1,11 +1,4 @@
 import { Notes } from "@/models/index.js";
-import define from "../../define.js";
-import { getNote } from "../../common/getters.js";
-import { ApiError } from "../../error.js";
-import { generateVisibilityQuery } from "../../common/generate-visibility-query.js";
-import { generateMutedUserQuery } from "../../common/generate-muted-user-query.js";
-import { makePaginationQuery } from "../../common/make-pagination-query.js";
-import { generateBlockedUserQuery } from "../../common/generate-block-query.js";
 import {
 	type ScyllaNote,
 	execPaginationQuery,
@@ -22,6 +15,13 @@ import {
 	UserBlockingCache,
 	UserMutingsCache,
 } from "@/misc/cache.js";
+import define from "@/server/api/define.js";
+import { getNote } from "@/server/api/common/getters.js";
+import { ApiError } from "@/server/api/error.js";
+import { generateVisibilityQuery } from "@/server/api/common/generate-visibility-query.js";
+import { generateMutedUserQuery } from "@/server/api/common/generate-muted-user-query.js";
+import { makePaginationQuery } from "@/server/api/common/make-pagination-query.js";
+import { generateBlockedUserQuery } from "@/server/api/common/generate-block-query.js";
 
 export const meta = {
 	tags: ["notes"],

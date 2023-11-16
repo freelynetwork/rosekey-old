@@ -1,6 +1,6 @@
-import define from "../../define.js";
+import define from "@/server/api/define.js";
 import { NoteFavorites } from "@/models/index.js";
-import { makePaginationQuery } from "../../common/make-pagination-query.js";
+import { makePaginationQuery } from "@/server/api/common/make-pagination-query.js";
 import { scyllaClient } from "@/db/scylla.js";
 
 export const meta = {

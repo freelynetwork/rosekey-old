@@ -1,9 +1,9 @@
 import { Meta } from "@/models/entities/meta.js";
 import { insertModerationLog } from "@/services/insert-moderation-log.js";
 import { db } from "@/db/postgre.js";
-import define from "../../define.js";
 import { Metas } from "@/models/index.js";
 import { metaCache } from "@/misc/fetch-meta.js";
+import define from "@/server/api/define.js";
 
 export const meta = {
 	tags: ["admin"],

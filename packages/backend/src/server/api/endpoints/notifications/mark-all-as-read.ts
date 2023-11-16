@@ -1,8 +1,8 @@
 import { publishMainStream } from "@/services/stream.js";
 import { pushNotification } from "@/services/push-notification.js";
 import { Notifications } from "@/models/index.js";
-import define from "../../define.js";
 import { scyllaClient } from "@/db/scylla.js";
+import define from "@/server/api/define.js";
 
 export const meta = {
 	tags: ["notifications", "account"],

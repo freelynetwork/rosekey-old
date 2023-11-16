@@ -13,10 +13,10 @@ import renderAnnounce from "@/remote/activitypub/renderer/announce.js";
 import { renderActivity } from "@/remote/activitypub/renderer/index.js";
 import { resolveUser } from "@/remote/resolve-user.js";
 import config from "@/config/index.js";
-import { updateHashtags } from "../update-hashtag.js";
+import { updateHashtags } from "@/services/update-hashtag.js";
 import { concat } from "@/prelude/array.js";
 import { insertNoteUnread } from "@/services/note/unread.js";
-import { registerOrFetchInstanceDoc } from "../register-or-fetch-instance-doc.js";
+import { registerOrFetchInstanceDoc } from "@/services/register-or-fetch-instance-doc.js";
 import { extractMentions } from "@/misc/extract-mentions.js";
 import { extractCustomEmojisFromMfm } from "@/misc/extract-custom-emojis-from-mfm.js";
 import { extractHashtags } from "@/misc/extract-hashtags.js";
@@ -53,11 +53,11 @@ import {
 } from "@/services/chart/index.js";
 import type { IPoll } from "@/models/entities/poll.js";
 import { Poll } from "@/models/entities/poll.js";
-import { createNotification } from "../create-notification.js";
+import { createNotification } from "@/services/create-notification.js";
 import { isDuplicateKeyValueError } from "@/misc/is-duplicate-key-value-error.js";
 import { checkHitAntenna } from "@/misc/check-hit-antenna.js";
 import { getWordHardMute } from "@/misc/check-word-mute.js";
-import { addNoteToAntenna } from "../add-note-to-antenna.js";
+import { addNoteToAntenna } from "@/services/add-note-to-antenna.js";
 import { countSameRenotes } from "@/misc/count-same-renotes.js";
 import { deliverToRelays, getCachedRelays } from "../relay.js";
 import type { Channel } from "@/models/entities/channel.js";
@@ -187,9 +187,10 @@ export default async (
 	data: Option,
 	silent = false,
 ) =>
-	// rome-ignore lint/suspicious/noAsyncPromiseExecutor: FIXME
+	// biome-ignore lint/suspicious/noAsyncPromiseExecutor: FIXME
 	new Promise<Note>(async (res, rej) => {
-		const dontFederateInitially = data.visibility === "hidden";
+		const dontFederateInitially =
+			data.localOnly || data.visibility?.startsWith("hidden") === true;
 
 		// If you reply outside the channel, match the scope of the target.
 		// TODO (I think it's a process that could be done on the client side, but it's server side for now.)
@@ -223,7 +224,7 @@ export default async (
 		if (data.channel != null) data.visibility = "public";
 		if (data.channel != null) data.visibleUsers = [];
 		if (data.channel != null) data.localOnly = true;
-		if (data.visibility.startsWith("hidden"))
+		if (data.visibility.startsWith("hidden") && data.visibility !== "hidden")
 			data.visibility = data.visibility.slice(6);
 
 		// enforce silent clients on server

@@ -72,8 +72,8 @@
 								reply
 									? 'ph-arrow-u-up-left'
 									: renote
-									? 'ph-quotes'
-									: 'ph-paper-plane-tilt',
+									  ? 'ph-quotes'
+									  : 'ph-paper-plane-tilt',
 							)
 						"
 					></i>
@@ -268,11 +268,8 @@ import { defaultStore, notePostInterruptors, postFormActions } from "@/store";
 import MkInfo from "@/components/MkInfo.vue";
 import { i18n } from "@/i18n";
 import { instance } from "@/instance";
-import {
-	$i,
-	getAccounts,
-	openAccountMenu as openAccountMenu_,
-} from "@/account";
+import { getAccounts, openAccountMenu as openAccountMenu_ } from "@/account";
+import { $i } from "@/reactiveAccount";
 import { uploadFile } from "@/scripts/upload";
 import { deepClone } from "@/scripts/clone";
 import XCheatSheet from "@/components/MkCheatSheetDialog.vue";
@@ -404,10 +401,10 @@ const submitText = computed((): string => {
 	return props.editId
 		? i18n.ts.edit
 		: props.renote
-		? i18n.ts.quote
-		: props.reply
-		? i18n.ts.reply
-		: i18n.ts.note;
+		  ? i18n.ts.quote
+		  : props.reply
+		    ? i18n.ts.reply
+		    : i18n.ts.note;
 });
 
 const textLength = computed((): number => {
@@ -476,8 +473,8 @@ if (props.reply && props.reply.text != null) {
 		const mention = x.host
 			? `@${x.username}@${toASCII(x.host)}`
 			: otherHost == null || otherHost === host
-			? `@${x.username}`
-			: `@${x.username}@${toASCII(otherHost)}`;
+			  ? `@${x.username}`
+			  : `@${x.username}@${toASCII(otherHost)}`;
 
 		// 自分は除外
 		if ($i.username === x.username && (x.host == null || x.host === host))
@@ -871,8 +868,8 @@ async function post() {
 		renoteId: props.renote
 			? props.renote.id
 			: quoteId.value
-			? quoteId.value
-			: undefined,
+			  ? quoteId.value
+			  : undefined,
 		channelId: props.channel ? props.channel.id : undefined,
 		poll: poll.value,
 		cw: useCw.value ? cw.value || "" : undefined,

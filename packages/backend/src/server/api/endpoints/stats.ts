@@ -1,5 +1,5 @@
-import { Instances, NoteReactions } from "@/models/index.js";
-import define from "../define.js";
+import { Instances, NoteReactions, Notes, Users } from "@/models/index.js";
+import define from "@/server/api/define.js";
 import { driveChart, notesChart, usersChart } from "@/services/chart/index.js";
 import { fetchReactionCount, scyllaClient } from "@/db/scylla.js";
 

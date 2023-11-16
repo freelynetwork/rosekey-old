@@ -13,10 +13,10 @@ import { notificationTypes } from "@/types.js";
 import { normalizeForSearch } from "@/misc/normalize-for-search.js";
 import { langmap } from "@/misc/langmap.js";
 import { verifyLink } from "@/services/fetch-rel-me.js";
-import { ApiError } from "../../error.js";
-import define from "../../define.js";
 import { userByIdCache, userDenormalizedCache } from "@/services/user-cache.js";
 import { InstanceMutingsCache, userWordMuteCache } from "@/misc/cache.js";
+import { ApiError } from "@/server/api/error.js";
+import define from "@/server/api/define.js";
 
 export const meta = {
 	tags: ["account"],
