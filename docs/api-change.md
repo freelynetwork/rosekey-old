@@ -2,7 +2,7 @@
 
 Breaking changes are indicated by the :warning: icon.
 
-## v1.0.5 (unreleased)
+## v1.0.5
 
 ### dev21
 
