@@ -96,7 +96,7 @@ export default async (job: Bull.Job<InboxJobData>): Promise<string> => {
 	}
 
 	// HTTP-Signatureの検証
-	const httpSignatureValidated = httpSignature.verifySignature(
+	let httpSignatureValidated = httpSignature.verifySignature(
 		signature,
 		authUser.key.keyPem,
 	);
