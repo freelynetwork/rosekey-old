@@ -21,5 +21,10 @@
 		},
 		"target": "es2022"
 	},
+	"module": {
+		"type": "es6",
+		"strict": true,
+		"resolveFully": true
+	},
 	"minify": false
 }

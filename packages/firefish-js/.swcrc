@@ -12,9 +12,10 @@
 		},
 		"target": "es2022"
 	},
-	"minify": false,
+	"minify": true,
 	"module": {
 		"type": "commonjs",
-		"strict": true
+		"strict": true,
+		"resolveFully": true
 	}
 }
