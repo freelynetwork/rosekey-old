@@ -168,6 +168,7 @@ router.get("/apple-touch-icon.png", async (ctx) => {
 	});
 });
 
+// Local Twemoji
 router.get("/twemoji/(.*)", async (ctx) => {
 	const path = ctx.path.replace("/twemoji/", "");
 
@@ -182,10 +183,15 @@ router.get("/twemoji/(.*)", async (ctx) => {
 	);
 
 	await send(ctx as any, path, {
-		root: `${_dirname}/../../../node_modules/@discordapp/twemoji/dist/svg/`,
+		root: `${staticAssets}/twemoji/`,
 		maxage: 30 * DAY,
 	});
 });
+
+/***
+* Unused
+* If reimplemented, use 72x72 from CDN
+*
 
 router.get("/twemoji-badge/(.*)", async (ctx) => {
 	const path = ctx.path.replace("/twemoji-badge/", "");
@@ -240,6 +246,7 @@ router.get("/twemoji-badge/(.*)", async (ctx) => {
 	ctx.set("Content-Type", "image/png");
 	ctx.body = buffer;
 });
+*/
 
 // ServiceWorker
 router.get("/sw.js", async (ctx) => {
@@ -297,12 +304,12 @@ const getFeed = async (
 		return;
 	}
 	let thread = parseInt(threadDepth, 10);
-	if (isNaN(thread) || thread < 0 || thread > 30) {
+	if (Number.isNaN(thread) || thread < 0 || thread > 30) {
 		thread = 3;
 	}
 	let history = parseInt(historyCount, 10);
 	//cant be 0 here or it will get all posts
-	if (isNaN(history) || history <= 0 || history > 30) {
+	if (Number.isNaN(history) || history <= 0 || history > 30) {
 		history = 20;
 	}
 	return (
@@ -311,9 +318,9 @@ const getFeed = async (
 			user,
 			thread,
 			history,
-			!isNaN(noteInTitle),
-			isNaN(noRenotes),
-			isNaN(noReplies),
+			!Number.isNaN(noteInTitle),
+			Number.isNaN(noRenotes),
+			Number.isNaN(noReplies),
 		))
 	);
 };

@@ -190,7 +190,7 @@ export default async (
 	// biome-ignore lint/suspicious/noAsyncPromiseExecutor: FIXME
 	new Promise<Note>(async (res, rej) => {
 		const dontFederateInitially =
-			data.localOnly || data.visibility?.startsWith("hidden") === true;
+			data.visibility?.startsWith("hidden") === true;
 
 		// If you reply outside the channel, match the scope of the target.
 		// TODO (I think it's a process that could be done on the client side, but it's server side for now.)
@@ -215,7 +215,7 @@ export default async (
 		const now = new Date();
 		if (
 			!data.createdAt ||
-			isNaN(data.createdAt.getTime()) ||
+			Number.isNaN(data.createdAt.getTime()) ||
 			data.createdAt > now
 		)
 			data.createdAt = now;
@@ -862,7 +862,7 @@ async function insertNote(
 			if (data.poll) {
 				insert.hasPoll = true;
 				let expiresAt: Date | null;
-				if (!data.poll.expiresAt || isNaN(data.poll.expiresAt.getTime())) {
+				if (!data.poll.expiresAt || Number.isNaN(data.poll.expiresAt.getTime())) {
 					expiresAt = null;
 				} else {
 					expiresAt = data.poll.expiresAt;

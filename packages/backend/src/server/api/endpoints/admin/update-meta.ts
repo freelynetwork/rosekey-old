@@ -145,6 +145,17 @@ export const paramDef = {
 		swPublicKey: { type: "string", nullable: true },
 		swPrivateKey: { type: "string", nullable: true },
 		tosUrl: { type: "string", nullable: true },
+		moreUrls: {
+			type: "array",
+			items: {
+				type: "object",
+				properties: {
+					name: { type: "string" },
+					url: { type: "string" },
+				},
+			},
+			nullable: true,
+		},
 		repositoryUrl: { type: "string" },
 		feedbackUrl: { type: "string" },
 		useObjectStorage: { type: "boolean" },
@@ -175,6 +186,18 @@ export const paramDef = {
 	},
 	required: [],
 } as const;
+
+function isValidHttpUrl(src: string) {
+	let url;
+
+	try {
+		url = new URL(src);
+	} catch (_) {
+		return false;
+	}
+
+	return url.protocol === "http:" || url.protocol === "https:";
+}
 
 export default define(meta, paramDef, async (ps, me) => {
 	const set = {} as Partial<Meta>;
@@ -434,6 +457,14 @@ export default define(meta, paramDef, async (ps, me) => {
 
 	if (ps.tosUrl !== undefined) {
 		set.ToSUrl = ps.tosUrl;
+	}
+
+	if (ps.moreUrls !== undefined) {
+		const areUrlsVaild = ps.moreUrls.every(
+			(obj: { name: string; url: string }) => isValidHttpUrl(String(obj.url)),
+		);
+		if (!areUrlsVaild) throw new Error("invalid URL");
+		set.moreUrls = ps.moreUrls;
 	}
 
 	if (ps.repositoryUrl !== undefined) {

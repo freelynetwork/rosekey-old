@@ -312,7 +312,7 @@ agreeTo: "I agree to {0}"
 tos: "Terms of Service"
 start: "Begin"
 home: "Home"
-remoteUserCaution: "Information from remote users may be incomplete."
+remoteUserCaution: "Information from remote users are incomplete."
 activity: "Activity"
 images: "Images"
 birthday: "Birthday"
@@ -1156,6 +1156,8 @@ detectPostLanguage: "Automatically detect the language and show a translate butt
 vibrate: "Play vibrations"
 openServerInfo: "Show server information by clicking the server ticker on a post"
 iconSet: "Icon set"
+useEmojiCdn: "Get Twemoji from CDN"
+useEmojiCdnDescription: "Use Twemoji from the JSDelivr CDN instead of the server's assets."
 
 _sensitiveMediaDetection:
   description: "Reduces the effort of server moderation through automatically recognizing
@@ -2161,3 +2163,5 @@ _iconSets:
   regular: "Regular"
   fill: "Filled"
   duotone: "Duotone"
+moreUrls: "Pinned pages"
+moreUrlsDescription: "Enter the pages you want to pin to the help menu in the lower left corner using this notation:\n\"Display name\": https://example.com/"

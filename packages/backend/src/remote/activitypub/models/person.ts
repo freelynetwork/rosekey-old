@@ -609,7 +609,9 @@ export async function updatePerson(
 		{
 			url: url,
 			fields,
-			description: person.summary
+			description: person._misskey_summary
+				? truncate(person._misskey_summary, summaryLength)
+				: person.summary
 				? htmlToMfm(truncate(person.summary, summaryLength), person.tag)
 				: null,
 			birthday: bday ? bday[0] : null,

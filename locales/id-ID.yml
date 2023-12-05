@@ -278,8 +278,7 @@ agreeTo: "Saya setuju kepada {0}"
 tos: "Syarat dan ketentuan"
 start: "Mulai"
 home: "Beranda"
-remoteUserCaution: "Informasi ini mungkin tidak mutakhir, karena pengguna ini berasal
-  dari instansi luar."
+remoteUserCaution: "Informasi dari pengguna luar tidak lengkap."
 activity: "Aktivitas"
 images: "Gambar"
 birthday: "Tanggal lahir"
@@ -2192,3 +2191,8 @@ reactions: Reaksi
 replies: Balasan
 quotes: Kutipan
 renotes: Postingan ulang
+showAttachedNotes: Tampilkan postingan dengan berkas ini
+attachedToNotes: Posting dengan berkas ini
+moreUrls: Halaman tersemat
+moreUrlsDescription: "Masukkan halaman yang ingin kamu sematkan ke menu bantuan di
+  pojok kiri bawah dengan notasi ini:\n\"Nama tampilan\": https://contoh.com/"

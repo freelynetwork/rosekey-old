@@ -6,26 +6,6 @@ import { IsNull } from "typeorm";
 import { EmojiCache } from "@/misc/populate-emojis.js";
 import type { Emoji } from "@/models/entities/emoji.js";
 
-export async function getFallbackReaction() {
-	const meta = await fetchMeta();
-	const name = meta.defaultReaction;
-
-	const match = emojiRegex.exec(name);
-	if (match) {
-		const unicode = match[0];
-		return { name: unicode, emoji: null };
-	}
-
-	const emoji = await EmojiCache.fetch(`${name} ${null}`, () =>
-		Emojis.findOneBy({
-			name,
-			host: IsNull(),
-		}),
-	);
-
-	return { name, emoji };
-}
-
 export function convertReactions(reactions: Record<string, number>) {
 	const result = new Map();
 
@@ -42,18 +22,18 @@ export function convertReactions(reactions: Record<string, number>) {
 export async function toDbReaction(
 	reaction?: string | null,
 	reacterHost?: string | null,
-): Promise<{ name: string; emoji: Emoji | null }> {
-	if (!reaction) return await getFallbackReaction();
+): Promise<string> {
+	if (!reaction) return (await fetchMeta()).defaultReaction;
 
 	const _reacterHost = toPunyNullable(reacterHost);
 
-	if (reaction.includes("❤") || reaction.includes("♥️")) return { name: "❤️", emoji: null };
+	if (reaction.includes("❤") || reaction.includes("♥️")) return "❤️";
 
 	// Allow unicode reactions
 	const match = emojiRegex.exec(reaction);
 	if (match) {
 		const unicode = match[0];
-		return { name: unicode, emoji: null };
+		return unicode;
 	}
 
 	const custom = reaction.match(/^:([\w+-]+)(?:@\.)?:$/);
@@ -66,20 +46,15 @@ export async function toDbReaction(
 			}),
 		);
 
-		if (emoji) {
-			const emojiName = _reacterHost
-				? `:${name}@${_reacterHost}:`
-				: `:${name}:`;
-			return { name: emojiName, emoji };
-		}
+		if (emoji) return reacterHost ? `:${name}@${reacterHost}:` : `:${name}:`;
 	}
 
-	return await getFallbackReaction();
+	return (await fetchMeta()).defaultReaction;
 }
 
 type DecodedReaction = {
 	/**
-	 * リアクション名 (Unicode Emoji or ':name@hostname' or ':name@.:')
+	 * リアクション名 (Unicode Emoji or ':name@hostname' or ':name@.')
 	 */
 	reaction: string;
 
@@ -114,3 +89,4 @@ export function decodeReaction(str: string): DecodedReaction {
 		host: undefined,
 	};
 }
+

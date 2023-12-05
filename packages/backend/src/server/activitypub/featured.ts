@@ -30,22 +30,25 @@ export default async (ctx: Router.RouterContext) => {
 		return;
 	}
 
-	const pinings = await UserNotePinings.find({
+	const pinning = await UserNotePinings.find({
 		where: { userId: user.id },
 		order: { id: "DESC" },
 	});
 
 	let pinnedNotes: Note[] = [];
 	if (scyllaClient) {
-		const noteIds = pinings.map(({ noteId }) => noteId);
+		const noteIds = pinning.map(({ noteId }) => noteId);
 		pinnedNotes = await scyllaClient
 			.execute(prepared.note.select.byIds, [noteIds], { prepare: true })
 			.then((result) => result.rows.map(parseScyllaNote));
 	} else {
 		pinnedNotes = await Promise.all(
-			pinings.map((pining) => Notes.findOneByOrFail({ id: pining.noteId })),
+			pinning.map((pin) => Notes.findOneByOrFail({ id: pin.noteId })),
 		);
 	}
+	pinnedNotes.filter(
+		(note) => !note.localOnly && ["public", "home"].includes(note.visibility),
+	);
 
 	const renderedNotes = await Promise.all(
 		pinnedNotes.map((note) => renderNote(note)),

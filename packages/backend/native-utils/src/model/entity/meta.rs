@@ -73,6 +73,8 @@ pub struct Model {
     pub pinned_users: Vec<String>,
     #[sea_orm(column_name = "ToSUrl")]
     pub to_s_url: Option<String>,
+    #[sea_orm(column_name = "moreUrls", column_type = "JsonBinary")]
+    pub more_urls: Json,
     #[sea_orm(column_name = "repositoryUrl")]
     pub repository_url: String,
     #[sea_orm(column_name = "feedbackUrl")]
