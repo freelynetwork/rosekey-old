@@ -251,6 +251,12 @@
 			<FormSwitch v-model="showFixedPostForm" class="_formBlock">{{
 				i18n.ts.showFixedPostForm
 			}}</FormSwitch>
+			<FormSwitch v-model="useEmojiCdn" class="_formBlock"
+				>{{ i18n.ts.useEmojiCdn
+				}}<template #caption>{{
+					i18n.ts.useEmojiCdnDescription
+				}}</template></FormSwitch
+			>
 			<FormSwitch
 				v-if="$i?.isAdmin"
 				v-model="showAdminUpdates"
@@ -303,7 +309,7 @@
 
 <script lang="ts" setup>
 import { computed, ref, watch } from "vue";
-import { $i } from "@/account";
+import { $i } from "@/reactiveAccount";
 import FormSwitch from "@/components/form/switch.vue";
 import FormSelect from "@/components/form/select.vue";
 import FormRadios from "@/components/form/radios.vue";
@@ -425,6 +431,7 @@ const openServerInfo = computed(
 	defaultStore.makeGetterSetter("openServerInfo"),
 );
 const iconSet = computed(defaultStore.makeGetterSetter("iconSet"));
+const useEmojiCdn = computed(defaultStore.makeGetterSetter("useEmojiCdn"));
 
 // This feature (along with injectPromo) is currently disabled
 // function onChangeInjectFeaturedNote(v) {
@@ -489,6 +496,7 @@ watch(
 		autoplayMfm,
 		expandOnNoteClick,
 		iconSet,
+		useEmojiCdn,
 	],
 	async () => {
 		await reloadAsk();

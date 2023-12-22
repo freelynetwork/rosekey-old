@@ -1,5 +1,5 @@
 ## Install dev and compilation dependencies, build files
-FROM node:latest as build
+FROM node:20-slim as build
 WORKDIR /firefish
 
 # Install compilation dependencies
@@ -26,6 +26,7 @@ COPY packages/backend/package.json packages/backend/package.json
 COPY packages/client/package.json packages/client/package.json
 COPY packages/sw/package.json packages/sw/package.json
 COPY packages/firefish-js/package.json packages/firefish-js/package.json
+COPY packages/megalodon/package.json packages/megalodon/package.json
 COPY packages/backend/native-utils/package.json packages/backend/native-utils/package.json
 COPY packages/backend/native-utils/npm/linux-x64-musl/package.json packages/backend/native-utils/npm/linux-x64-musl/package.json
 COPY packages/backend/native-utils/npm/linux-arm64-musl/package.json packages/backend/native-utils/npm/linux-arm64-musl/package.json
@@ -47,13 +48,15 @@ RUN env NODE_ENV=production sh -c "pnpm run --filter '!native-utils' build && pn
 RUN pnpm i --prod --frozen-lockfile
 
 ## Runtime container
-FROM node:latest
+FROM node:20-slim
 WORKDIR /firefish
 
 # Install runtime dependencies
-RUN apt-get update && apt-get install -y libvips-dev zip unzip tini ffmpeg
+RUN apt-get update && apt-get install -y --no-install-recommends libvips-dev zip unzip tini ffmpeg
 
 COPY . ./
+
+COPY --from=build /firefish/packages/megalodon /firefish/packages/megalodon
 
 # Copy node modules
 COPY --from=build /firefish/node_modules /firefish/node_modules

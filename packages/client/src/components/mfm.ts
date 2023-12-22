@@ -61,7 +61,7 @@ export default defineComponent({
 		const validNumber = (n: string | null | undefined) => {
 			if (n == null) return null;
 			const parsed = parseFloat(n);
-			return !isNaN(parsed) && isFinite(parsed) && parsed > 0;
+			return !Number.isNaN(parsed) && Number.isFinite(parsed) && parsed > 0;
 		};
 		// const validEase = (e: string | null | undefined) => {
 		// 	if (e == null) return null;
@@ -264,7 +264,7 @@ export default defineComponent({
 										: token.props.args.y
 										? "perspective(128px) rotateY"
 										: "rotate";
-									const degrees = parseInt(token.props.args.deg) || "90";
+									const degrees = parseFloat(token.props.args.deg ?? "90");
 									style = `transform: ${rotate}(${degrees}deg); transform-origin: center center;`;
 									break;
 								}

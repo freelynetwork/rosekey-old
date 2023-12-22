@@ -1,8 +1,5 @@
-import megalodon, { MegalodonInterface } from "megalodon";
 import Router from "@koa/router";
-import { koaBody } from "koa-body";
 import { getClient } from "../ApiMastodonCompatibleService.js";
-import bodyParser from "koa-bodyparser";
 
 const readScope = [
 	"read:account",
@@ -68,7 +65,7 @@ export function apiAuthMastodon(router: Router): void {
 				website: body.website,
 				redirect_uri: red,
 				client_id: Buffer.from(appData.url || "").toString("base64"),
-				client_secret: appData.client_secret,
+				client_secret: appData.clientSecret,
 			};
 			console.log(returns);
 			ctx.body = returns;

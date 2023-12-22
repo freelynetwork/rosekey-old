@@ -210,7 +210,7 @@ import { useRouter } from "@/router";
 import { userPage } from "@/filters/user";
 import * as os from "@/os";
 import { reactionPicker } from "@/scripts/reaction-picker";
-import { $i } from "@/account";
+import { $i } from "@/reactiveAccount";
 import { i18n } from "@/i18n";
 import { useNoteCapture } from "@/scripts/use-note-capture";
 import { defaultStore } from "@/store";
@@ -268,7 +268,7 @@ const isDeleted = ref(false);
 const muted = ref(
 	getWordSoftMute(
 		note.value,
-		$i.id,
+		$i?.id,
 		defaultStore.state.mutedWords,
 		defaultStore.state.mutedLangs,
 	),

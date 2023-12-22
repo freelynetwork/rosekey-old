@@ -15,11 +15,10 @@ import * as slow from "koa-slow";
 import { IsNull } from "typeorm";
 import config from "@/config/index.js";
 import Logger from "@/services/logger.js";
-import { UserProfiles, Users } from "@/models/index.js";
+import { Users } from "@/models/index.js";
 import { fetchMeta } from "@/misc/fetch-meta.js";
 import { genIdenticon } from "@/misc/gen-identicon.js";
 import { createTemp } from "@/misc/create-temp.js";
-import { publishMainStream } from "@/services/stream.js";
 import * as Acct from "@/misc/acct.js";
 import { envOption } from "@/env.js";
 import megalodon, { MegalodonInterface } from "megalodon";
@@ -163,10 +162,10 @@ mastoRouter.post("/oauth/token", async (ctx) => {
 		ctx.body = ret;
 		return;
 	}
-	let client_id: Array<string> | string | null = body.client_id;
+	let client_id: any = body.client_id;
 	const BASE_URL = `${ctx.request.protocol}://${ctx.request.hostname}`;
 	const generator = (megalodon as any).default;
-	const client = generator("firefish", BASE_URL, null) as MegalodonInterface;
+	const client = generator(BASE_URL, null) as MegalodonInterface;
 	let token = null;
 	if (body.code) {
 		//m = body.code.match(/^([a-zA-Z0-9]{8})([a-zA-Z0-9]{4})([a-zA-Z0-9]{4})([a-zA-Z0-9]{4})([a-zA-Z0-9]{12})/);
@@ -190,7 +189,7 @@ mastoRouter.post("/oauth/token", async (ctx) => {
 			token ? token : "",
 		);
 		const ret = {
-			access_token: atData.access_token,
+			access_token: atData.accessToken,
 			token_type: "Bearer",
 			scope: body.scope || "read write follow push",
 			created_at: Math.floor(new Date().getTime() / 1000),

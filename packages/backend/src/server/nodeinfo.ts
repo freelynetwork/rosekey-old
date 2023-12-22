@@ -89,9 +89,6 @@ const nodeinfo2 = async () => {
 			enableRecaptcha: meta.enableRecaptcha,
 			maxNoteTextLength: MAX_NOTE_TEXT_LENGTH,
 			maxCaptionTextLength: MAX_CAPTION_TEXT_LENGTH,
-			enableTwitterIntegration: meta.enableTwitterIntegration,
-			enableGithubIntegration: meta.enableGithubIntegration,
-			enableDiscordIntegration: meta.enableDiscordIntegration,
 			enableEmail: meta.enableEmail,
 			enableServiceWorker: meta.enableServiceWorker,
 			proxyAccountName: proxyAccount ? proxyAccount.username : null,
@@ -117,6 +114,7 @@ router.get(nodeinfo2_0path, async (ctx) => {
 
 	// @ts-ignore
 	base.software.repository = undefined;
+	base.software.homepage = undefined;
 
 	ctx.body = { version: "2.0", ...base };
 	ctx.set("Cache-Control", "public, max-age=600");

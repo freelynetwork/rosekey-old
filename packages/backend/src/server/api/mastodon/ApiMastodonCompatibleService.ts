@@ -13,7 +13,7 @@ import {
 	convertAnnouncement,
 	convertFilter,
 } from "./converters.js";
-import { convertId, IdType } from "../index.js";
+import { convertId, IdType } from "@/server/api/index.js";
 import { Users } from "@/models/index.js";
 import { IsNull } from "typeorm";
 
@@ -24,11 +24,7 @@ export function getClient(
 	const accessTokenArr = authorization?.split(" ") ?? [null];
 	const accessToken = accessTokenArr[accessTokenArr.length - 1];
 	const generator = (megalodon as any).default;
-	const client = generator(
-		"firefish",
-		BASE_URL,
-		accessToken,
-	) as MegalodonInterface;
+	const client = generator(BASE_URL, accessToken) as MegalodonInterface;
 	return client;
 }
 

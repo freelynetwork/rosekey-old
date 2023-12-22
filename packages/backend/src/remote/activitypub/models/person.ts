@@ -8,7 +8,6 @@ import { updateUsertags } from "@/services/update-hashtag.js";
 import {
 	Users,
 	Instances,
-	DriveFiles,
 	Followings,
 	UserProfiles,
 	UserPublickeys,
@@ -33,8 +32,8 @@ import { publishInternalEvent } from "@/services/stream.js";
 import { db } from "@/db/postgre.js";
 import { apLogger } from "../logger.js";
 import { htmlToMfm } from "../misc/html-to-mfm.js";
-import { fromHtml } from "../../../mfm/from-html.js";
-import type { IActor, IObject, IApPropertyValue } from "../type.js";
+import { fromHtml } from "@/mfm/from-html.js";
+import type { IActor, IObject } from "../type.js";
 import {
 	isCollectionOrOrderedCollection,
 	isCollection,
@@ -313,7 +312,9 @@ export async function createPerson(
 			await transactionalEntityManager.save(
 				new UserProfile({
 					userId: user.id,
-					description: person.summary
+					description: person._misskey_summary
+						? truncate(person._misskey_summary, summaryLength)
+						: person.summary
 						? htmlToMfm(truncate(person.summary, summaryLength), person.tag)
 						: null,
 					url: url,
@@ -456,7 +457,7 @@ export async function updatePerson(
 
 	const emojiNames = emojis.map((emoji) => emoji.name);
 
-	const { fields } = analyzeAttachments(person.attachment || []);
+	const fields = analyzeAttachments(person.attachment || []);
 
 	const tags = extractApHashtags(person.tag)
 		.map((tag) => normalizeForSearch(tag))
@@ -589,7 +590,9 @@ export async function updatePerson(
 		{
 			url: url,
 			fields,
-			description: person.summary
+			description: person._misskey_summary
+				? truncate(person._misskey_summary, summaryLength)
+				: person.summary
 				? htmlToMfm(truncate(person.summary, summaryLength), person.tag)
 				: null,
 			birthday: bday ? bday[0] : null,

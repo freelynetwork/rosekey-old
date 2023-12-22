@@ -1,7 +1,7 @@
 import config from "@/config/index.js";
 import {
-	DB_MAX_NOTE_TEXT_LENGTH,
 	DB_MAX_IMAGE_COMMENT_LENGTH,
+	DB_MAX_NOTE_TEXT_LENGTH,
 } from "@/misc/hard-limits.js";
 
 export const MAX_NOTE_TEXT_LENGTH = Math.min(
@@ -14,10 +14,8 @@ export const MAX_CAPTION_TEXT_LENGTH = Math.min(
 );
 
 export const SECOND = 1000;
-export const SEC = 1000; // why do we need this duplicate here?
-export const MINUTE = 60 * SEC;
-export const MIN = 60 * SEC; // why do we need this duplicate here?
-export const HOUR = 60 * MIN;
+export const MINUTE = 60 * SECOND;
+export const HOUR = 60 * MINUTE;
 export const DAY = 24 * HOUR;
 
 export const USER_ONLINE_THRESHOLD = 10 * MINUTE;

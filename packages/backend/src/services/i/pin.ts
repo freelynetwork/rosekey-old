@@ -9,7 +9,7 @@ import { Notes, UserNotePinings, Users } from "@/models/index.js";
 import type { UserNotePining } from "@/models/entities/user-note-pining.js";
 import { genId } from "@/misc/gen-id.js";
 import { deliverToFollowers } from "@/remote/activitypub/deliver-manager.js";
-import { deliverToRelays } from "../relay.js";
+import { deliverToRelays } from "@/services/relay.js";
 
 /**
  * 指定した投稿をピン留めします
@@ -57,7 +57,11 @@ export async function addPinned(
 	} as UserNotePining);
 
 	// Deliver to remote followers
-	if (Users.isLocalUser(user)) {
+	if (
+		Users.isLocalUser(user) &&
+		!note.localOnly &&
+		["public", "home"].includes(note.visibility)
+	) {
 		deliverPinnedChange(user.id, note.id, true);
 	}
 }
@@ -90,7 +94,11 @@ export async function removePinned(
 	});
 
 	// Deliver to remote followers
-	if (Users.isLocalUser(user)) {
+	if (
+		Users.isLocalUser(user) &&
+		!note.localOnly &&
+		["public", "home"].includes(note.visibility)
+	) {
 		deliverPinnedChange(user.id, noteId, false);
 	}
 }

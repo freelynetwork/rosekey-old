@@ -1,11 +1,10 @@
 import Router from "@koa/router";
 import { getClient } from "../ApiMastodonCompatibleService.js";
 import { emojiRegexAtStartToEnd } from "@/misc/emoji-regex.js";
-import axios from "axios";
 import querystring from "node:querystring";
 import qs from "qs";
 import { convertTimelinesArgsId, limitToInt } from "./timeline.js";
-import { convertId, IdType } from "../../index.js";
+import { convertId, IdType } from "@/server/api/index.js";
 import {
 	convertAccount,
 	convertAttachment,
@@ -380,7 +379,7 @@ export function apiStatusMastodon(router: Router): void {
 			const accessTokens = ctx.headers.authorization;
 			const client = getClient(BASE_URL, accessTokens);
 			try {
-				const data = await client.createEmojiReaction(
+				const data = await client.reactStatus(
 					convertId(ctx.params.id, IdType.FirefishId),
 					ctx.params.name,
 				);
@@ -400,7 +399,7 @@ export function apiStatusMastodon(router: Router): void {
 			const accessTokens = ctx.headers.authorization;
 			const client = getClient(BASE_URL, accessTokens);
 			try {
-				const data = await client.deleteEmojiReaction(
+				const data = await client.unreactStatus(
 					convertId(ctx.params.id, IdType.FirefishId),
 					ctx.params.name,
 				);

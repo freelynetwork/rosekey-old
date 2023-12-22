@@ -10,15 +10,15 @@
 				:aria-controls="bodyId"
 			>
 				<template v-if="showBody"
-					><i :class="icon('ph-caret-up')"></i
+					><i class="ph-caret-up ph-bold ph-lg"></i
 				></template>
 				<template v-else
-					><i :class="icon('ph-caret-down')"></i
+					><i class="ph-caret-down ph-bold ph-lg"></i
 				></template>
 			</button>
 		</header>
 		<transition
-			:name="defaultStore.state.animation ? 'folder-toggle' : ''"
+			:name="animation ? 'folder-toggle' : ''"
 			@enter="enter"
 			@after-enter="afterEnter"
 			@leave="leave"
@@ -35,7 +35,7 @@
 import { defineComponent } from "vue";
 import { getUniqueId } from "@/os";
 import { defaultStore } from "@/store";
-import icon from "@/scripts/icon";
+// import icon from "@/scripts/icon";
 
 const localStoragePrefix = "ui:folder:";
 
@@ -62,6 +62,7 @@ export default defineComponent({
 							localStoragePrefix + this.persistKey,
 					  ) === "t"
 					: this.expanded,
+			animation: defaultStore.state.animation,
 		};
 	},
 	watch: {

@@ -4,9 +4,9 @@ import config from "@/config/index.js";
 import { Converter } from "opencc-js";
 import { getAgentByUrl } from "@/misc/fetch.js";
 import { fetchMeta } from "@/misc/fetch-meta.js";
-import { ApiError } from "../../error.js";
-import { getNote } from "../../common/getters.js";
-import define from "../../define.js";
+import { ApiError } from "@/server/api/error.js";
+import { getNote } from "@/server/api/common/getters.js";
+import define from "@/server/api/define.js";
 
 export const meta = {
 	tags: ["notes"],
@@ -64,6 +64,7 @@ export default define(meta, paramDef, async (ps, user) => {
 
 	let targetLang = ps.targetLang;
 	if (targetLang.includes("-")) targetLang = targetLang.split("-")[0];
+	if (targetLang.includes("_")) targetLang = targetLang.split("_")[0];
 
 	if (instance.libreTranslateApiUrl != null) {
 		const jsonBody = {
