@@ -1,6 +1,6 @@
 <div align="center">
 <a href="about:brank">
-	<img src="./package/client/assets/rosekey.png" alt="Rosekey logo" style="border-radius:50%" width="400"/>
+	<img src="./packages/client/assets/rosekey.png" alt="Rosekey logo" style="border-radius:50%" width="400"/>
 </a>
 
 **🌎 **[Roseskey](about:brank)** is an open source, decentralized social media platform that's free forever! 🚀**
