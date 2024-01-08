@@ -50,10 +50,10 @@ const nodeinfo2 = async () => {
 
 	return {
 		software: {
-			name: "firefish",
+			name: "rosekey",
 			version: config.version,
 			repository: meta.repositoryUrl,
-			homepage: "https://joinfirefish.org/",
+			homepage: "https://rosekey.sbs",
 		},
 		protocols: ["activitypub"],
 		services: {
