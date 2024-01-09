@@ -21,7 +21,7 @@
 							@load="iconLoaded"
 							@click="gravity"
 						/>
-						<div class="misskey">Firefish</div>
+						<div class="misskey">Rosekey</div>
 						<div class="version">v{{ version }}</div>
 						<span
 							v-for="emoji in easterEggEmojis"
@@ -43,7 +43,7 @@
 					</div>
 					<div class="_formBlock" style="text-align: center">
 						{{ i18n.ts._aboutFirefish.about }}<br /><a
-							href="https://joinfirefish.org/"
+							href="https://rosekey.sbs"
 							target="_blank"
 							class="_link"
 							>{{ i18n.ts.learnMore }}</a
@@ -51,40 +51,20 @@
 					</div>
 					<div class="_formBlock" style="text-align: center">
 						<MkButton primary rounded inline @click="iLoveMisskey"
-							>I <Mfm text="$[jelly ❤]" /> #Firefish</MkButton
+							>I <Mfm text="$[jelly ❤]" /> #Rosekey</MkButton
 						>
 					</div>
 					<FormSection>
 						<div class="_formLinks">
 							<FormLink
-								to="https://git.joinfirefish.org/firefish/firefish"
+								to="https://github.com/freelynetwork/rosekey"
 								external
 							>
 								<template #icon
 									><i :class="icon('ph-code')"></i
 								></template>
 								{{ i18n.ts._aboutFirefish.source }}
-								<template #suffix>GitLab</template>
-							</FormLink>
-							<FormLink
-								to="https://opencollective.com/firefish"
-								external
-							>
-								<template #icon
-									><i :class="icon('ph-money')"></i
-								></template>
-								{{ i18n.ts._aboutFirefish.donate }}
-								<template #suffix>Donate</template>
-							</FormLink>
-							<FormLink
-								to="https://hosted.weblate.org/engage/firefish/"
-								external
-							>
-								<template #icon
-									><i :class="icon('ph-translate')"></i
-								></template>
-								{{ i18n.ts._aboutFirefish.translation }}
-								<template #suffix>Translate</template>
+								<template #suffix>GitHub</template>
 							</FormLink>
 						</div>
 					</FormSection>
@@ -92,6 +72,21 @@
 						<template #label>{{
 							i18n.ts._aboutFirefish.contributors
 						}}</template>
+						<div class="_formLinks">
+							<FormLink to="/@164@roseskey.sbs"
+								><Mfm
+									:text="'$[sparkle @164@roseskey.sbs] (Main developer)'"
+							/></FormLink>
+						</div>
+						<h3
+							style="
+								font-weight: 700;
+								margin: 1.5em 0 16px;
+								font-size: 1em;
+							"
+						>
+							{{ i18n.ts._aboutFirefish.misskeyContributors }}
+						</h3>
 						<div class="_formLinks">
 							<FormLink to="/@kainoa@firefish.social"
 								><Mfm
@@ -121,17 +116,6 @@
 								><Mfm
 									:text="'@magi@minazukey.uk (Error images)'"
 							/></FormLink>
-						</div>
-						<h3
-							style="
-								font-weight: 700;
-								margin: 1.5em 0 16px;
-								font-size: 1em;
-							"
-						>
-							{{ i18n.ts._aboutFirefish.misskeyContributors }}
-						</h3>
-						<div class="_formLinks">
 							<FormLink to="/@syuilo@misskey.io"
 								><Mfm :text="'@syuilo@misskey.io'"
 							/></FormLink>
@@ -153,52 +137,10 @@
 						</div>
 						<h3>
 							<MkLink
-								url="https://git.joinfirefish.org/firefish/firefish/activity"
+								url="https://github.com/freelynetwork/rosekey/graphs/contributors"
 								>{{ i18n.ts._aboutFirefish.allContributors }}
 							</MkLink>
 						</h3>
-					</FormSection>
-					<FormSection>
-						<template #label
-							><Mfm
-								:text="`$[x2 $[jelly ❤] ${i18n.ts._aboutFirefish.sponsors}]`"
-							/>
-						</template>
-						<MkSparkle>
-							<span
-								v-for="sponsor in sponsors"
-								:key="sponsor"
-								style="
-									margin-bottom: 0.5rem;
-									margin-right: 0.5rem;
-									font-size: 1.7rem;
-								"
-							>
-								<Mfm :text="`${sponsor}`" />
-							</span>
-						</MkSparkle>
-					</FormSection>
-					<FormSection>
-						<template #label
-							><Mfm text="$[jelly ❤]" />
-							{{ i18n.ts._aboutFirefish.patrons }}</template
-						>
-						<p>
-							{{ i18n.ts._aboutFirefish.patronsList }}
-						</p>
-						<MkSparkle>
-							<span
-								v-for="patron in patrons"
-								:key="patron"
-								style="
-									margin-bottom: 0.5rem;
-									margin-right: 0.5rem;
-								"
-							>
-								<Mfm :text="`${patron}`" />
-							</span>
-						</MkSparkle>
-						<p>{{ i18n.ts._aboutFirefish.morePatrons }}</p>
 					</FormSection>
 				</div>
 			</MkSpacer>
@@ -213,7 +155,6 @@ import FormLink from "@/components/form/link.vue";
 import FormSection from "@/components/form/section.vue";
 import MkButton from "@/components/MkButton.vue";
 import MkLink from "@/components/MkLink.vue";
-import MkSparkle from "@/components/MkSparkle.vue";
 import { physics } from "@/scripts/physics";
 import { i18n } from "@/i18n";
 import { defaultStore } from "@/store";
@@ -259,7 +200,7 @@ function gravity() {
 
 function iLoveMisskey() {
 	os.post({
-		initialText: "I $[jelly ❤] #Firefish",
+		initialText: "I $[jelly ❤] #Rosekey",
 		instant: true,
 	});
 }
