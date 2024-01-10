@@ -85,12 +85,6 @@ export const navbarItemDef = reactive({
 		show: computed(() => $i != null),
 		to: "/my/clips",
 	},
-	paint: {
-		title: 'paint',
-		icon: 'fas fa-paintbrush',
-		show: computed(() => $i != null),
-		to: '/paint',	
-	},
 	channels: {
 		title: "channel",
 		icon: `${icon("ph-television")}`,
