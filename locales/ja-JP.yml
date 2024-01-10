@@ -1073,7 +1073,7 @@ _registry:
   domain: "ドメイン"
   createKey: "キーを作成"
 _aboutFirefish:
-  about: "Rosekeyは、2024年に生まれたFreelyNetworkによる FireFish (Naskya Custom) のforkです。"
+  about: "Rosekeyは、2024年に生まれたFreelyNetworkによる FireFish のforkです。"
   contributors: "主なコントリビューター"
   allContributors: "全てのコントリビューター"
   misskeyContributors: "フォーク元のMisskeyとFireFishの主なコントリビューター"

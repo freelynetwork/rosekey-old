@@ -1250,7 +1250,7 @@ _registry:
   domain: "Domain"
   createKey: "Create key"
 _aboutFirefish:
-  about: "Rosekey is a fork of FireFish (Naskya Custom) by FreelyNetwork, born in 2024."
+  about: "Rosekey is a fork of FireFish by FreelyNetwork, born in 2024."
   contributors: "Main contributors"
   allContributors: "All contributors"
   misskeyContributors: "Misskey contributors"
