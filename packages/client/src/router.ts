@@ -345,10 +345,6 @@ export const routes = [
 		component: page(() => import("./pages/scratchpad.vue")),
 	},
 	{
-		path: '/paint',
-	    component: page(() => import('./pages/paint.vue')),
-	},
-	{
 		path: "/preview",
 		component: page(() => import("./pages/preview.vue")),
 	},
