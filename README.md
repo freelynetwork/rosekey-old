@@ -24,8 +24,9 @@
 
 - [FFmpeg](https://ffmpeg.org/) for video transcoding
 - Full text search (one of the following)
-  - [PGroonga](https://pgroonga.github.io/)
-  - You cannot use anything other than PGroonga (Meilisearch, Elasticsearch, Sonic, etc.)
+  - 🦔 [Sonic](https://crates.io/crates/sonic-server)
+  - [MeiliSearch](https://www.meilisearch.com/)
+  - [ElasticSearch](https://www.elastic.co/elasticsearch/) 
 - Caching server (one of the following)
   - 🐲 [DragonflyDB](https://www.dragonflydb.io/) (recommended)
   - 👻 [KeyDB](https://keydb.dev/)
